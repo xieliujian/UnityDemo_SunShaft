@@ -306,16 +306,16 @@ namespace LR.URP.PPExtensions.sunshafts
             if (props == null)
                 return false;
 
-            if (props.buildDepthNormalMaterial == null)
-                return false;
+            //if (props.buildDepthNormalMaterial == null)
+            //    return false;
 
-            if (props.buildDepthMaterial == null)
-                return false;
+            //if (props.buildDepthMaterial == null)
+            //    return false;
+
+            //if (props.outlineMaterial == null)
+            //    return false;
 
             if (props.buildSkyMaterial == null)
-                return false;
-
-            if (props.outlineMaterial == null)
                 return false;
 
             if (props.mixSkyDepthMaterial == null)

@@ -204,39 +204,19 @@ namespace LR.URP.PPExtensions.sunshafts
             }
         }
 
-        public void GetMaterial(ref Material mat, string shaderName)
-        {
-            if (mat == null || mat.shader == null)
-            {
-                if (mat != null)
-                {
-                    GameObject.DestroyImmediate(mat, true);
-                    mat = null;
-                }
-
-                Shader shader = Shader.Find(shaderName);
-                if (shader == null)
-                {
-                    return;
-                }
-
-                mat = new Material(shader);
-            }
-        }
-
         /// <summary>
         /// 加载所有的材质
         /// </summary>
         public void CacheAllMaterial()
         {
-            GetMaterial(ref renderDepthNormalsMaterial, SunShaftsFeatureV2.depthNormalsShaderName);
-            GetMaterial(ref buildDepthNormalMaterial, SunShaftsFeatureV2.buildDepthNormalsShaderName);
-            GetMaterial(ref buildDepthMaterial, SunShaftsFeatureV2.buildDepthShaderName);
-            GetMaterial(ref buildSkyMaterial, SunShaftsFeatureV2.buildSkyShaderName);
-            GetMaterial(ref outlineMaterial, SunShaftsFeatureV2.outlineShaderName);
-            GetMaterial(ref mixSkyDepthMaterial, SunShaftsFeatureV2.mixSkyDepthShaderName);
-            GetMaterial(ref blurMaterial, SunShaftsFeatureV2.blurShaderName);
-            GetMaterial(ref finalBlendMaterial, SunShaftsFeatureV2.finalBlendShaderName);
+            //PPUtils.GetMaterial(ref renderDepthNormalsMaterial, SunShaftsFeatureV2.depthNormalsShaderName);
+            //PPUtils.GetMaterial(ref buildDepthNormalMaterial, SunShaftsFeatureV2.buildDepthNormalsShaderName);
+            //PPUtils.GetMaterial(ref buildDepthMaterial, SunShaftsFeatureV2.buildDepthShaderName);
+            //PPUtils.GetMaterial(ref outlineMaterial, SunShaftsFeatureV2.outlineShaderName);
+            PPUtils.GetMaterial(ref buildSkyMaterial, SunShaftsFeatureV2.buildSkyShaderName);
+            PPUtils.GetMaterial(ref mixSkyDepthMaterial, SunShaftsFeatureV2.mixSkyDepthShaderName);
+            PPUtils.GetMaterial(ref blurMaterial, SunShaftsFeatureV2.blurShaderName);
+            PPUtils.GetMaterial(ref finalBlendMaterial, SunShaftsFeatureV2.finalBlendShaderName);
         }
 
         /// <summary>
