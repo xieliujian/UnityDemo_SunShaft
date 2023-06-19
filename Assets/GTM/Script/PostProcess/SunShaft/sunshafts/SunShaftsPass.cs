@@ -171,26 +171,16 @@ namespace LR.URP.PPExtensions.sunshafts
             //1. blit depth as color to color texture
             if (props.IsRenderOutlineGeometry())
             {
-                if (props.useDepthNormals)
-                {
-                    props.buildDepthNormalMaterial.SetVector(SunPosition, sunScreenPoint);
-                    props.buildDepthNormalMaterial.SetFloat(SunThresholdDepth, props.sunThresholdDepth);
-                    props.buildDepthNormalMaterial.SetFloat(DepthValueCutOff, props.depthValueCutOff);
-                    Blit(cmd, depthNormalsSource.Identifier(), tmpDepthColorTarget.Identifier(), props.buildDepthNormalMaterial);
-                }
-                else
-                {
-                    props.buildDepthMaterial.SetVector(SunPosition, sunScreenPoint);
-                    props.buildDepthMaterial.SetFloat(SunThresholdDepth, props.sunThresholdDepth);
-                    props.buildDepthMaterial.SetFloat(DepthValueCutOff, props.depthValueCutOff);
-                    Blit(cmd, renderingData.cameraData.renderer.cameraDepthTarget,
-                        tmpDepthColorTarget.Identifier(), props.buildDepthMaterial);
-                }
+                props.buildDepthMaterial.SetVector(SunPosition, sunScreenPoint);
+                props.buildDepthMaterial.SetFloat(SunThresholdDepth, props.sunThresholdDepth);
+                //props.buildDepthMaterial.SetFloat(DepthValueCutOff, props.depthValueCutOff);
+                Blit(cmd, renderingData.cameraData.renderer.cameraDepthTarget,
+                    tmpDepthColorTarget.Identifier(), props.buildDepthMaterial);
 
-                //1.5 run Sobel edge detector for depth texture
-                props.outlineMaterial.SetFloat(OutlineThickness, props.depthOutlineThickness);
-                props.outlineMaterial.SetFloat(OutlineMultiplier, props.depthOutlineMultiplier);
-                props.outlineMaterial.SetFloat(OutlineBias, props.depthOutlineBias);
+                ////1.5 run Sobel edge detector for depth texture
+                //props.outlineMaterial.SetFloat(OutlineThickness, props.depthOutlineThickness);
+                //props.outlineMaterial.SetFloat(OutlineMultiplier, props.depthOutlineMultiplier);
+                //props.outlineMaterial.SetFloat(OutlineBias, props.depthOutlineBias);
                 Blit(cmd, tmpDepthColorTarget.Identifier(), tmpFullSizeTex.Identifier(), props.outlineMaterial);
                 Blit(cmd, tmpFullSizeTex.Identifier(), tmpDepthColorTarget.Identifier());
             }
@@ -305,15 +295,6 @@ namespace LR.URP.PPExtensions.sunshafts
         {
             if (props == null)
                 return false;
-
-            //if (props.buildDepthNormalMaterial == null)
-            //    return false;
-
-            //if (props.buildDepthMaterial == null)
-            //    return false;
-
-            //if (props.outlineMaterial == null)
-            //    return false;
 
             if (props.buildSkyMaterial == null)
                 return false;

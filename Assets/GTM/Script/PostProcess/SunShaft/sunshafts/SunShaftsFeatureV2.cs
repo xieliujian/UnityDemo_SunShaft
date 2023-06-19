@@ -9,10 +9,6 @@ namespace LR.URP.PPExtensions.sunshafts
 {
     public class SunShaftsFeatureV2 : ScriptableRendererFeature
     {
-        //public static readonly string depthNormalsShaderName = "LingRen/Urp/PPExtensions/DepthNormalsShader";
-        //public static readonly string buildDepthNormalsShaderName = "LingRen/Urp/PPExtensions/BuildDepthNormalsForBlurShader";
-        //public static readonly string buildDepthShaderName = "LingRen/Urp/PPExtensions/BuildDepthForBlurShader";
-        //public static readonly string outlineShaderName = "LingRen/Urp/PPExtensions/OutlineShader";
         public static readonly string buildSkyShaderName = "LingRen/Urp/PPExtensions/BuildSkyForBlurShader";
         public static readonly string mixSkyDepthShaderName = "LingRen/Urp/PPExtensions/MixSkyDepthShader";
         public static readonly string blurShaderName = "LingRen/Urp/PPExtensions/DirectionalBlurShader";
@@ -33,30 +29,12 @@ namespace LR.URP.PPExtensions.sunshafts
                 props = new SunShaftsProperties();
             }
             
-            //InitOnPropertiesUpdate(props);
-
             shaftsPass = new SunShaftsPass(props)
             {
                 renderPassEvent = shaftsPassEvent,
                 originRenderPassEvent = shaftsPassEvent,
             };
         }
-
-        //public void InitOnPropertiesUpdate(SunShaftsProperties props)
-        //{
-        //    if (props.useDepthNormals)
-        //    {
-        //        depthNormalsPass = new DepthNormalsPass(new DepthNormalsInput()
-        //        {
-        //            layers = props.normalsLayerMask,
-        //            textureName = depthNormalsTextureName,
-        //            debugBlitToColorTarget = false,
-        //        }, props)
-        //        {
-        //            renderPassEvent = normalsPassEvent,
-        //        };
-        //    }
-        //}
 
         public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
         {
@@ -76,13 +54,6 @@ namespace LR.URP.PPExtensions.sunshafts
             }
 
             RenderTargetIdentifier cameraColorTarget = renderer.cameraColorTarget;
-
-            //if (props.useDepthNormals)
-            //{
-            //    depthNormalsPass.Setup(cameraColorTarget);
-            //    renderer.EnqueuePass(depthNormalsPass);
-            //}
-
             shaftsPass.Setup(cameraColorTarget, RenderTargetHandle.CameraTarget);
             renderer.EnqueuePass(shaftsPass);
         }

@@ -31,8 +31,7 @@ namespace LR.URP.PPExtensions.sunshafts
         [Range(0, 5)]
 
         public float intensity = 0.2f;
-        [Tooltip("Whether use depth normals or only depth texture. Depth normals will require extra pass")]
-        public bool useDepthNormals;
+
         [Tooltip("LayerMask to render to depth normals texture")]
         public LayerMask normalsLayerMask = -1; //All by default
         [Tooltip("What parts to use for outline: only sky bounded by geometry or both sky + geometry")]
@@ -56,12 +55,12 @@ namespace LR.URP.PPExtensions.sunshafts
         [Range(0, 1)]
         public float sunThresholdDepth = 0.75f;
         
-        [Header("Depth texture params - for geometry/normals texture")]
-        [Range(0, 1)]
-        public float depthValueCutOff = 0.5f;
-        public int depthOutlineThickness = 1;
-        public float depthOutlineMultiplier = 5f;
-        public float depthOutlineBias = 25f;
+        //[Header("Depth texture params - for geometry/normals texture")]
+        //[Range(0, 1)]
+        //public float depthValueCutOff = 0.5f;
+        //public int depthOutlineThickness = 1;
+        //public float depthOutlineMultiplier = 5f;
+        //public float depthOutlineBias = 25f;
 
         [Header("Sky params - for SkyOnly mode or both")]
         [Tooltip("Highlight only edges, not the whole sky")]
@@ -178,17 +177,16 @@ namespace LR.URP.PPExtensions.sunshafts
             sunThresholdSky = m_SunShafts.sunThresholdSky.value;
             sunThresholdDepth = m_SunShafts.sunThresholdDepth.value;
 
-            depthValueCutOff = m_SunShafts.depthValueCutOff.value;
-            depthOutlineThickness = m_SunShafts.depthOutlineThickness.value;
-            depthOutlineMultiplier = m_SunShafts.depthOutlineMultiplier.value;
-            depthOutlineBias = m_SunShafts.depthOutlineBias.value;
+            //depthValueCutOff = m_SunShafts.depthValueCutOff.value;
+            //depthOutlineThickness = m_SunShafts.depthOutlineThickness.value;
+            //depthOutlineMultiplier = m_SunShafts.depthOutlineMultiplier.value;
+            //depthOutlineBias = m_SunShafts.depthOutlineBias.value;
 
-            useSkyEdgesForShafts = m_SunShafts.useSkyEdgesForShafts.value;
-            skyNoiseScale = m_SunShafts.skyNoiseScale.value;
-            skyOutlineThickness = m_SunShafts.skyOutlineThickness.value;
-            skyOutlineMultiplier = m_SunShafts.skyOutlineMultiplier.value;
-            skyOutlineBias = m_SunShafts.skyOutlineBias.value;
-
+            //useSkyEdgesForShafts = m_SunShafts.useSkyEdgesForShafts.value;
+            //skyNoiseScale = m_SunShafts.skyNoiseScale.value;
+            //skyOutlineThickness = m_SunShafts.skyOutlineThickness.value;
+            //skyOutlineMultiplier = m_SunShafts.skyOutlineMultiplier.value;
+            //skyOutlineBias = m_SunShafts.skyOutlineBias.value;
 
             depthDownscalePow2 = m_SunShafts.depthDownscalePow2.value;
             blurRadius = m_SunShafts.blurRadius.value;

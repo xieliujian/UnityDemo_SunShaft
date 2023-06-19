@@ -57,19 +57,19 @@ namespace LR.Scene
         [Tooltip("SunShafts sunThresholdDepth")]
         public ClampedFloatParameter sunThresholdDepth = new ClampedFloatParameter(0.75f, 0f, 1f);
 
-        [Header("Depth texture params - for geometry/normals texture")]
-        public ClampedFloatParameter depthValueCutOff = new ClampedFloatParameter(0.5f, 0f, 1f);
-        public IntParameter depthOutlineThickness = new IntParameter(1);
-        public FloatParameter depthOutlineMultiplier = new FloatParameter(5f);
-        public FloatParameter depthOutlineBias = new FloatParameter(25f);
+        //[Header("Depth texture params - for geometry/normals texture")]
+        //public ClampedFloatParameter depthValueCutOff = new ClampedFloatParameter(0.5f, 0f, 1f);
+        //public IntParameter depthOutlineThickness = new IntParameter(1);
+        //public FloatParameter depthOutlineMultiplier = new FloatParameter(5f);
+        //public FloatParameter depthOutlineBias = new FloatParameter(25f);
 
-        [Header("Sky params - for SkyOnly mode or both")]
-        [Tooltip("Highlight only edges, not the whole sky")]
-        public BoolParameter useSkyEdgesForShafts = new BoolParameter(false);
-        public FloatParameter skyNoiseScale = new FloatParameter(75f);
-        public IntParameter skyOutlineThickness = new IntParameter(1);
-        public FloatParameter skyOutlineMultiplier = new FloatParameter(5f);
-        public FloatParameter skyOutlineBias = new FloatParameter(25f);
+        //[Header("Sky params - for SkyOnly mode or both")]
+        //[Tooltip("Highlight only edges, not the whole sky")]
+        //public BoolParameter useSkyEdgesForShafts = new BoolParameter(false);
+        //public FloatParameter skyNoiseScale = new FloatParameter(75f);
+        //public IntParameter skyOutlineThickness = new IntParameter(1);
+        //public FloatParameter skyOutlineMultiplier = new FloatParameter(5f);
+        //public FloatParameter skyOutlineBias = new FloatParameter(25f);
 
         [Header("Blur params")]
         [Tooltip("SunShafts depthDownscalePow2")]
