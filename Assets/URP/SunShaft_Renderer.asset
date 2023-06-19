@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de640fe3d0db1804a85f9fc8f5cadab6, type: 3}
   m_Name: SunShaft_Renderer
   m_EditorClassIdentifier: 
-  m_RendererFeatures: []
-  m_RendererFeatureMap: 
+  m_RendererFeatures:
+  - {fileID: 684657296826801436}
+  m_RendererFeatureMap: 1c9d3d1a2f648009
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
   shaders:
@@ -42,3 +43,49 @@ MonoBehaviour:
   m_ShadowTransparentReceive: 1
   m_RenderingMode: 0
   m_AccurateGbufferNormals: 0
+--- !u!114 &684657296826801436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8d18a5c0954b00988398d684e08fe7, type: 3}
+  m_Name: SunShaftsFeatureV2
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  props:
+    isOn: 1
+    forceOn: 0
+    filterMode: 1
+    intensity: 1.34
+    useDepthNormals: 0
+    normalsLayerMask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    outlineMode: 1
+    useSunLightColor: 1
+    shaftsColor: {r: 1, g: 0, b: 0, a: 1}
+    useSunPosition: 1
+    sunPosition: {x: 0, y: 0, z: 0}
+    sunThresholdSky: 0.593
+    sunThresholdDepth: 0.695
+    depthValueCutOff: 0.5
+    depthOutlineThickness: 1
+    depthOutlineMultiplier: 5
+    depthOutlineBias: 25
+    useSkyEdgesForShafts: 0
+    skyNoiseScale: 75
+    skyOutlineThickness: 1
+    skyOutlineMultiplier: 5
+    skyOutlineBias: 25
+    depthDownscalePow2: 2
+    blurRadius: 1.2
+    blurStepsCount: 2
+    useRenderPassEvent: 0
+    renderPassEvent: 400
+    useStencilMaskTex: 0
+  normalsPassEvent: 400
+  shaftsPassEvent: 500

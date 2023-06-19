@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 3833943682897335227}
+--- !u!114 &3833943682897335227
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b1ffcf05ff49b49bf6e063a5fd100d, type: 3}
+  m_Name: SunShafts
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  on:
+    m_OverrideState: 1
+    m_Value: 1
+  forceOn:
+    m_OverrideState: 1
+    m_Value: 0
+  useRenderPassEvent:
+    m_OverrideState: 1
+    m_Value: 0
+  renderPassEvent:
+    m_OverrideState: 1
+    m_Value: 400
+  useStencilMaskTex:
+    m_OverrideState: 1
+    m_Value: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 2.4
+    min: 0
+    max: 5
+  useSunLightColor:
+    m_OverrideState: 1
+    m_Value: 0
+  shaftsColor:
+    m_OverrideState: 1
+    m_Value: {r: 0.11035956, g: 0.47433645, b: 0.754717, a: 1}
+    hdr: 0
+    showAlpha: 1
+    showEyeDropper: 1
+  useSunPosition:
+    m_OverrideState: 1
+    m_Value: 0
+  sunPosition:
+    m_OverrideState: 1
+    m_Value: {x: 0, y: 0, z: 0}
+  sunThresholdSky:
+    m_OverrideState: 1
+    m_Value: 0.673
+    min: 0
+    max: 1
+  sunThresholdDepth:
+    m_OverrideState: 1
+    m_Value: 0.609
+    min: 0
+    max: 1
+  depthValueCutOff:
+    m_OverrideState: 1
+    m_Value: 0.5
+    min: 0
+    max: 1
+  depthOutlineThickness:
+    m_OverrideState: 1
+    m_Value: 1
+  depthOutlineMultiplier:
+    m_OverrideState: 1
+    m_Value: 5
+  depthOutlineBias:
+    m_OverrideState: 1
+    m_Value: 25
+  useSkyEdgesForShafts:
+    m_OverrideState: 1
+    m_Value: 0
+  skyNoiseScale:
+    m_OverrideState: 1
+    m_Value: 75
+  skyOutlineThickness:
+    m_OverrideState: 1
+    m_Value: 1
+  skyOutlineMultiplier:
+    m_OverrideState: 1
+    m_Value: 5
+  skyOutlineBias:
+    m_OverrideState: 1
+    m_Value: 25
+  depthDownscalePow2:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 0
+    max: 4
+  blurRadius:
+    m_OverrideState: 1
+    m_Value: 1.2
+  blurStepsCount:
+    m_OverrideState: 1
+    m_Value: 2
+    min: 1
+    max: 4
