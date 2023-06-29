@@ -69,11 +69,6 @@ namespace GTM.URP.SunShaft
         /// <summary>
         /// 
         /// </summary>
-        RenderTargetHandle m_TmpDepthColorTarget;
-
-        /// <summary>
-        /// 
-        /// </summary>
         RenderTargetHandle m_TmpSkyColorTarget;
 
         /// <summary>
@@ -85,11 +80,6 @@ namespace GTM.URP.SunShaft
         /// 
         /// </summary>
         RenderTargetHandle m_TmpBlurTarget2;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        RenderTargetHandle m_TmpFullSizeTex;
 
         /// <summary>
         /// 
@@ -113,10 +103,8 @@ namespace GTM.URP.SunShaft
         {
             m_Props = props;
 
-            m_TmpDepthColorTarget.Init("_TmpDepthColorTex");
             m_TmpSkyColorTarget.Init("_TmpSkyColorTex");
 
-            m_TmpFullSizeTex.Init("_ShaftsTex");
             m_TmpDestination.Init("_TmpDestinationBuffer");
 
             m_TmpBlurTarget1.Init("_TmpBlurTex1");
@@ -221,9 +209,7 @@ namespace GTM.URP.SunShaft
             }
 
             m_Props.finalBlendMaterial.SetFloat(Intensity, m_Props.intensity);
-            var shaftsColor = m_Props.useSunLightColor && RenderSettings.sun
-                ? RenderSettings.sun.color
-                : m_Props.shaftsColor;
+            var shaftsColor = m_Props.useSunLightColor && RenderSettings.sun ? RenderSettings.sun.color : m_Props.shaftsColor;
             m_Props.finalBlendMaterial.SetColor(ShaftsColor, shaftsColor);
 
             // 设置是否使用Mask Tex
@@ -262,8 +248,6 @@ namespace GTM.URP.SunShaft
         {
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget1.id);
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget2.id);
-            cmd.ReleaseTemporaryRT(m_TmpFullSizeTex.id);
-
             cmd.ReleaseTemporaryRT(m_TmpSkyColorTarget.id);
         }
 

@@ -1,11 +1,11 @@
-Shader "GTM/PostProcess/SunShaft/BuildSkyForBlurShader"
+Shader "GTM/PostProcess/SunShaft/FinalBlendShader"
 {
     Properties
     {
-         [NoScaleOffset] _MainTex("Main Texture", 2D) = "black" {}
-        _SunPosition("SunPosition", Vector) = (0.5, 0.5, 0, 0)
-        _SunThresholdSky("SunThresholdSky", Float) = 0.99
-        _SkyNoiseScale("Sky Noise Scale", Float) = 250
+        [NoScaleOffset] _MainTex("Main Texture", 2D) = "black" {}
+        [NoScaleOffset] _StencilMaskTex("Stencil Mask Tex", 2D) = "black" {}
+        _Intensity("Intensity", Range(0, 1)) = 0.1
+        _UseStencilMaskTex("_UseStencilMaskTex", Float) = 0
     }
 
     SubShader
@@ -29,32 +29,38 @@ Shader "GTM/PostProcess/SunShaft/BuildSkyForBlurShader"
             #define REQUIRE_DEPTH_TEXTURE
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
-            #include "SimpleNoise.hlsl"
 
             struct Attributes
             {
                 float3 positionOS : POSITION;
                 float4 uv : TEXCOORD0;
             };
-
+            
             struct Varyings
             {
                 float4 positionCS : SV_POSITION;
                 float4 uv : TEXCOORD0;
-                float4 ScreenPosition : TEXCOORD1;
             };
 
             CBUFFER_START(UnityPerMaterial)
                 float4 _MainTex_TexelSize;
-                float2 _SunPosition;
-                float _SunThresholdSky;
-                float _SkyNoiseScale;
+                float4 _StencilMaskTex_TexelSize;
+                float4 _TmpBlurTex1_TexelSize;
+                float4 _ShaftsColor;
+                float _Intensity;
+                float _UseStencilMaskTex;
             CBUFFER_END
 
             // Object and Global properties
             SAMPLER(SamplerState_Linear_Repeat);
             TEXTURE2D(_MainTex);
             SAMPLER(sampler_MainTex);
+
+            TEXTURE2D(_StencilMaskTex);
+            SAMPLER(sampler_StencilMaskTex);
+
+            TEXTURE2D(_TmpBlurTex1);
+            SAMPLER(sampler_TmpBlurTex1);
 
             Varyings vert(Attributes input)
             {
@@ -66,7 +72,6 @@ Shader "GTM/PostProcess/SunShaft/BuildSkyForBlurShader"
 
                 output.positionCS = positionCS;
                 output.uv = input.uv;
-                output.ScreenPosition = ComputeScreenPos(positionCS, _ProjectionParams.x);
 
                 return output;
             }
@@ -74,27 +79,24 @@ Shader "GTM/PostProcess/SunShaft/BuildSkyForBlurShader"
             float4 frag(Varyings input) : SV_Target
             {
                 float4 uv = input.uv;
-                float4 screenPos = input.ScreenPosition;
-
-                // Distance from Sun
-                float disFromSun = length(_SunPosition.xy - uv.xy);
-
-                // Limit for SkyBox by Sun Distance
-                float limitSkyBySunDis = saturate(_SunThresholdSky - disFromSun);
 
                 // 
-                float sceneDepth = Linear01Depth(SHADERGRAPH_SAMPLE_SCENE_DEPTH(screenPos.xy / screenPos.w), _ZBufferParams);
-                float sceneDepthComp = (sceneDepth >= 0.99) ? 1 : 0;
+                float4 shaftTexColor = SAMPLE_TEXTURE2D(_TmpBlurTex1, sampler_TmpBlurTex1, uv.xy);
+                shaftTexColor *= _Intensity;
+                shaftTexColor = saturate(shaftTexColor) * _ShaftsColor;
 
-                limitSkyBySunDis *= sceneDepthComp;
+                //
+                float4 maskTexColor = SAMPLE_TEXTURE2D(_StencilMaskTex, sampler_StencilMaskTex, uv.xy);
+                float maskVal = saturate(1 - saturate(maskTexColor));
+                maskVal = _UseStencilMaskTex * maskVal + (1 - _UseStencilMaskTex);
 
-                // 
+                shaftTexColor *= maskVal;
+
+                //
                 float4 mainTexColor = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, uv.xy);
-                float noiseVal;
-                Unity_SimpleNoise_float(uv.xy, _SkyNoiseScale, noiseVal);
-                mainTexColor *= noiseVal;
 
-                float4 color = mainTexColor * limitSkyBySunDis;
+                // 
+                float4 color = mainTexColor + shaftTexColor;
 
                 return color;
             }
