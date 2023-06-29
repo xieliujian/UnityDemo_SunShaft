@@ -128,7 +128,6 @@ namespace GTM.URP.SunShaft
             sunPosition = m_SunShafts.sunPosition.value;
 
             sunThresholdSky = m_SunShafts.sunThresholdSky.value;
-            sunThresholdDepth = m_SunShafts.sunThresholdDepth.value;
 
             depthDownscalePow2 = m_SunShafts.depthDownscalePow2.value;
             blurRadius = m_SunShafts.blurRadius.value;

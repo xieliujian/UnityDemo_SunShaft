@@ -54,8 +54,8 @@ namespace GTM.URP.SunShaft
 
         [Tooltip("SunShafts sunThresholdSky")]
         public ClampedFloatParameter sunThresholdSky = new ClampedFloatParameter(0.75f, 0f, 1f);
-        [Tooltip("SunShafts sunThresholdDepth")]
-        public ClampedFloatParameter sunThresholdDepth = new ClampedFloatParameter(0.75f, 0f, 1f);
+        //[Tooltip("SunShafts sunThresholdDepth")]
+        //public ClampedFloatParameter sunThresholdDepth = new ClampedFloatParameter(0.75f, 0f, 1f);
 
         [Header("Blur params")]
         [Tooltip("SunShafts depthDownscalePow2")]

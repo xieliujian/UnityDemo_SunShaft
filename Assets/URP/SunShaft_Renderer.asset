@@ -60,32 +60,22 @@ MonoBehaviour:
     isOn: 1
     forceOn: 0
     filterMode: 1
-    intensity: 1.34
-    useDepthNormals: 0
+    intensity: 2.36
     normalsLayerMask:
       serializedVersion: 2
       m_Bits: 4294967295
     outlineMode: 1
-    useSunLightColor: 1
-    shaftsColor: {r: 1, g: 0, b: 0, a: 1}
-    useSunPosition: 1
+    useSunLightColor: 0
+    shaftsColor: {r: 0.11035956, g: 0.47433645, b: 0.754717, a: 1}
+    useSunPosition: 0
     sunPosition: {x: 0, y: 0, z: 0}
-    sunThresholdSky: 0.593
-    sunThresholdDepth: 0.695
-    depthValueCutOff: 0.5
-    depthOutlineThickness: 1
-    depthOutlineMultiplier: 5
-    depthOutlineBias: 25
-    useSkyEdgesForShafts: 0
+    sunThresholdSky: 0.673
+    sunThresholdDepth: 0.609
     skyNoiseScale: 75
-    skyOutlineThickness: 1
-    skyOutlineMultiplier: 5
-    skyOutlineBias: 25
     depthDownscalePow2: 2
     blurRadius: 1.2
     blurStepsCount: 2
     useRenderPassEvent: 0
     renderPassEvent: 400
     useStencilMaskTex: 0
-  normalsPassEvent: 400
   shaftsPassEvent: 500
