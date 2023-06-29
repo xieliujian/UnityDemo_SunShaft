@@ -10,7 +10,6 @@ namespace GTM.URP.SunShaft
         private static readonly int BlurStep = Shader.PropertyToID("_BlurStep");
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
         private static readonly int ShaftsColor = Shader.PropertyToID("_ShaftsColor");
-        private static readonly int SunThresholdDepth = Shader.PropertyToID("_SunThresholdDepth");
         private static readonly int SunThresholdSky = Shader.PropertyToID("_SunThresholdSky");
         private static readonly int SkyNoiseScale = Shader.PropertyToID("_SkyNoiseScale");
 
@@ -174,20 +173,6 @@ namespace GTM.URP.SunShaft
 
             InitTmpTextures(cmd, cameraTargetDescriptor);
 
-            //1. blit depth as color to color texture
-            if (m_Props.IsRenderOutlineGeometry())
-            {
-                m_Props.buildDepthMaterial.SetVector(SunPosition, sunScreenPoint);
-                m_Props.buildDepthMaterial.SetFloat(SunThresholdDepth, m_Props.sunThresholdDepth);
-                //m_Props.buildDepthMaterial.SetFloat(DepthValueCutOff, m_Props.depthValueCutOff);
-                Blit(cmd, renderingData.cameraData.renderer.cameraDepthTarget,
-                    m_TmpDepthColorTarget.Identifier(), m_Props.buildDepthMaterial);
-
-                ////1.5 run Sobel edge detector for depth texture
-                Blit(cmd, m_TmpDepthColorTarget.Identifier(), m_TmpFullSizeTex.Identifier(), m_Props.outlineMaterial);
-                Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpDepthColorTarget.Identifier());
-            }
-
             //2. Blit sky cutted off by geometry
             if (m_Props.IsRenderSkyOutline())
             {
@@ -208,20 +193,9 @@ namespace GTM.URP.SunShaft
                 }
             }
 
-            if (m_Props.IsRenderBothOutlines())
-            {
-                cmd.SetGlobalTexture(m_TmpDepthColorTarget.id, m_TmpDepthColorTarget.Identifier());
-                cmd.SetGlobalTexture(m_TmpSkyColorTarget.id, m_TmpSkyColorTarget.Identifier());
-                //m_TmpFullSizeTex will not be used, just add two textures above to 1st blur target
-                Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpBlurTarget1.Identifier(), m_Props.mixSkyDepthMaterial);
-            }
-            else if (m_Props.IsRenderSkyOutline())
+            if (m_Props.IsRenderSkyOutline())
             {
                 Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
-            }
-            else if (m_Props.IsRenderOutlineGeometry())
-            {
-                Blit(cmd, m_TmpDepthColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
             }
 
             //2. Blur iteratively
@@ -285,11 +259,6 @@ namespace GTM.URP.SunShaft
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget1.id);
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget2.id);
             cmd.ReleaseTemporaryRT(m_TmpFullSizeTex.id);
-
-            if (m_Props.IsRenderOutlineGeometry())
-            {
-                cmd.ReleaseTemporaryRT(m_TmpDepthColorTarget.id);
-            }
 
             if (m_Props.IsRenderSkyOutline())
             {
@@ -371,24 +340,10 @@ namespace GTM.URP.SunShaft
             cmd.GetTemporaryRT(m_TmpBlurTarget2.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
 
             bool isgetfullsizetex = false;
-            if (m_Props.IsRenderOutlineGeometry())
-            {
-                isgetfullsizetex = true;
-            }
-            else if (m_Props.IsRenderSkyOutline() && m_Props.useSkyEdgesForShafts)
-            {
-                isgetfullsizetex = true;
-            }
 
             if (isgetfullsizetex)
             {
                 cmd.GetTemporaryRT(m_TmpFullSizeTex.id, opaqueDesc.width, opaqueDesc.height, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
-
-
-            if (m_Props.IsRenderOutlineGeometry())
-            {
-                cmd.GetTemporaryRT(m_TmpDepthColorTarget.id, opaqueDesc.width, opaqueDesc.height, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
             }
 
             if (m_Props.IsRenderSkyOutline())

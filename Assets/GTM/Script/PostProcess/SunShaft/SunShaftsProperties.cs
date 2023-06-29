@@ -120,21 +120,10 @@ namespace GTM.URP.SunShaft
             get { return m_SunShafts; }
         }
 
-        public bool IsRenderOutlineGeometry()
-        {
-            return outlineMode == OutlineMode.OnlyDepthGeometry
-                   || outlineMode == OutlineMode.SkyAndDepthGeometry;
-        }
-
         public bool IsRenderSkyOutline()
         {
             return outlineMode == OutlineMode.OnlySky
                    || outlineMode == OutlineMode.SkyAndDepthGeometry;
-        }
-
-        public bool IsRenderBothOutlines()
-        {
-            return outlineMode == OutlineMode.SkyAndDepthGeometry;
         }
 
         public bool CanVolumeRender()
