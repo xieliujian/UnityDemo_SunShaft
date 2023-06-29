@@ -29,6 +29,8 @@ Shader "GTM/PostProcess/SunShaft/FinalBlendShader"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 
+            #pragma enable_d3d11_debug_symbols
+
             struct Attributes
             {
                 float3 positionOS : POSITION;
@@ -96,6 +98,7 @@ Shader "GTM/PostProcess/SunShaft/FinalBlendShader"
 
                 // 
                 float4 color = mainTexColor + shaftTexColor;
+                //color = mainTexColor;
 
                 return color;
             }

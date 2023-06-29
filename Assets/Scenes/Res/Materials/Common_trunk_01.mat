@@ -1,0 +1,418 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Common_trunk_01
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_ShaderKeywords: _ALPHATEST_ON _METALLICSPECGLOSSMAP _NORMALMAP
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
+  disabledShaderPasses:
+  - SHADOWCASTER
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: e9a3c8d6d9f599f4fa8166c1962fdb91, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: e57cf45b78ba38240b24aee4157f55c4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EffectMaskTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionLavaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LavaNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LavaNoiseDistortion:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e9a3c8d6d9f599f4fa8166c1962fdb91, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 2800000, guid: cfb52f79d4abda5488c7c495e172e47e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoBakeTreeRimMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PlanarReflectionMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ReflectionCube:
+        m_Texture: {fileID: 8900000, guid: 2e96654610420e443a93cec2b7892a63, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TreeRimMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - customReflectionCube:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - EnableEffect: 0
+    - _AO: 0.1
+    - _AlphaClip: 1
+    - _AlphaShift: 0.015
+    - _AlphaWidth: 2
+    - _BendTerrain: 0
+    - _Blend: 0
+    - _BoxEnvironmentReflections: 0
+    - _Btoom_Range: 0.5
+    - _Btoom_range_move: -4.3
+    - _BumpScale: 2
+    - _CStencilOp: 0
+    - _CStencilZFail: 0
+    - _CameraCullAlpha: 0.265
+    - _CameraCullCurHeight: -0.255
+    - _CameraCullDitherPow: 2
+    - _CameraCullMaxHeight: 5.0150003
+    - _CameraCullMinHeight: -0.2550001
+    - _CameraCullReservedPercent: 0.13
+    - _CameraCullSceneObjCurHeight: 2
+    - _CameraCullSceneObjTotalHeight: 10
+    - _CameraCullTransitionRange: 5
+    - _CameraFadeDist: 6
+    - _CameraFadeShadows: 0
+    - _CameraFadingEnabled: 1
+    - _CameraShadowFadeDist: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _CrossFadeIntensity: 0
+    - _CubeReflMask: 1
+    - _Cull: 2
+    - _CustomSpecularIntensity: 1
+    - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DistacneRevertDir: 0
+    - _DstBlend: 10
+    - _EffectAuraColorFactor: 0.5
+    - _EffectAuraFlowItensity: 1
+    - _EffectAuraOutAlpha: 1
+    - _EffectAuraSmoothColorBorder: 0.5
+    - _EffectAuraWidth: 0
+    - _EffectBias: 0
+    - _EffectDissBorderSoft: 0
+    - _EffectDissDissDirX: 0
+    - _EffectDissDissDirY: 0
+    - _EffectDissDissDirZ: 0
+    - _EffectDissEdgeInternalSoft: 0
+    - _EffectDissEdgeWidth: 0
+    - _EffectDissFactor: 0
+    - _EffectFresnelHeight: 0
+    - _EffectFresnelNoiseMapTilingX: 1
+    - _EffectFresnelNoiseMapTilingY: 1
+    - _EffectFresnelNoisePower: 0
+    - _EffectFresnelNoiseSpeed: 0
+    - _EffectFrozenFresnelPower: 0
+    - _EffectFrozenFresnelScale: 0
+    - _EffectFrozenIceFreMult: 0
+    - _EffectFrozenIcePow: 0
+    - _EffectFrozenIceStrength: 0
+    - _EffectFrozenParallaxScale: 0
+    - _EffectLerpColorFactor: 0
+    - _EffectMask: 0
+    - _EffectMulColorFactor: 0
+    - _EffectPower: 0
+    - _EffectStrength: 0
+    - _EffectTranferFrozenFinalControl: 0
+    - _EffectTranferFrozenFrePower: 0
+    - _EffectTranferFrozenFreScale: 0
+    - _EffectTranferFrozenIceCenterPositionX: 0
+    - _EffectTranferFrozenIceCenterPositionY: 0
+    - _EffectTranferFrozenIceCenterPositionZ: 0
+    - _EffectTranferFrozenIceFreMult: 0
+    - _EffectTranferFrozenIcePow: 0
+    - _EffectTranferFrozenIceRange: 0
+    - _EffectTranferFrozenIceRangeSoft: 0
+    - _EffectTranferFrozenNoiseMult: 0
+    - _EffectTranferFrozenNoisePow: 0
+    - _EffectTranferFrozenParallaxScale: 0
+    - _EffectTranferFrozenPositionYOffset: 0
+    - _EffectTransferClipOffset: 0
+    - _EffectTransferHighColorOffset: 0
+    - _EffectTransferLerpColorWidth: 0
+    - _EffectTransferLowColorOffset: 0
+    - _EffectTransferNoise2Tiling: 0
+    - _EffectTransferNoiseMultiply1: 0
+    - _EffectTransferNoiseMultiply2: 0
+    - _EffectTransferNoiseScale1: 0
+    - _EffectTransferNoiseScale2: 0
+    - _EffectTransferNoiseSpeed1: 0
+    - _EffectTransferNoiseSpeed2: 0
+    - _EffectTransferOffsetY: 0
+    - _EffectTransferReverse: 0
+    - _EffectTransferTranProgress: 0
+    - _EffectTransferVertexX: 0
+    - _EffectTransferVertexY: 0
+    - _EffectTransferVertexZ: 0
+    - _EmissionFrequency: 0
+    - _EmissionLava: 0
+    - _EmissionLava_FinalPower: 4
+    - _EmissionLava_RampOffsetExp: 1
+    - _EmissionSpeed: 1
+    - _Enabel_Instance: 0
+    - _EnableCameraCull: 1
+    - _EnableCharEffectFrag: 0
+    - _EnableColor: 0
+    - _EnableCrossFade: 0
+    - _EnableCubeRefl: 1
+    - _EnableCubeReflMask: 0
+    - _EnableDirDiss: 0
+    - _EnableDiss: 0
+    - _EnableDissEdge: 0
+    - _EnableDistanceDiss: 0
+    - _EnableFresnel: 0
+    - _EnableFresnelHeight: 0
+    - _EnableFresnelNoise: 0
+    - _EnableFrozen: 0
+    - _EnableNoBakeTreeRim: 0
+    - _EnableSceneObjFlash: 0
+    - _EnableSoftDiss: 0
+    - _EnableTransfer: 0
+    - _EnableTransferFrozen: 0
+    - _EnableTransparent: 0
+    - _EnvironmentReflections: 1
+    - _ExHighLight: 0
+    - _ForbidReflBlur: 0
+    - _ForceWriteZ: 0
+    - _GIAmount: 1
+    - _GIThreshold: 0.2
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
+    - _GrassMod: 2
+    - _GrassStrength: 3
+    - _Hue: 0
+    - _ImpsotorDrawMode: 0
+    - _IsDistancDissLocalSpace: 0
+    - _LavaAppearMaskExp: 1
+    - _Main_tex_stranth: 1
+    - _Metallic: 0
+    - _MetallicSpecGlossMap_On: 1
+    - _MinShadowBais: 0
+    - _NightFade: 0.5
+    - _NoBakeTreeCenterHeight: 0
+    - _NoBakeTreeFrontLightColorIntensity: 1
+    - _NoBakeTreeFrontRange: 0
+    - _NoBakeTreeRimMax: 0.8
+    - _NoBakeTreeRimMin: 0.4
+    - _NoBakeTreeShadowClip: 0.4
+    - _NoBakeTreeTranslucencyIntensity: 1
+    - _NoBakeTreeTranslucencyOffset: -0.5
+    - _NotUseDepthPass: 0
+    - _OcclusionPower: 1
+    - _OcclusionStrength: 1
+    - _OpenCameraCull: 0
+    - _Parallax: 0.005
+    - _PlanarReflectionColorScale: 3
+    - _PlanarReflectionFresnal: 1
+    - _Plant: 0
+    - _PlantBaseHeight: 0
+    - _PlantPhaseVariation: 0.3
+    - _PlantSwayAmount: 0.04
+    - _PlantSwaySpeed: 1
+    - _QueueOffset: 0
+    - _ReadMask: 255
+    - _ReceiveShadows: 1
+    - _ReflectionBump: 0.055
+    - _ReflectionIntensity: 0.5
+    - _ReflectionIntensity2: 0
+    - _Rim: 0
+    - _RimFrequency: 0
+    - _RimMinPower: 1
+    - _RimPerPositionFrequency: 1
+    - _RimPower: 2
+    - _SceneObjFlashFactor: 0
+    - _SceneObjFlashFail: 0
+    - _SceneObjFlashSpeed: 0
+    - _SceneObjFlashSuccess: 0
+    - _ShadowAmount: 1
+    - _ShadowShift: 1
+    - _ShadowShiftThreshold: 0.05
+    - _ShadowShiftView: 0
+    - _Shift: 0.01
+    - _SmoothToReflection: 0.1
+    - _Smoothness: 0.599
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 5
+    - _Stencil: 0
+    - _StencilComp: 0
+    - _StencilFail: 0
+    - _Surface: 2
+    - _TerrainReceiveShadow: 0
+    - _Top_range: 0.227
+    - _Top_range_move: -2
+    - _TranslucencyIntensity: 1
+    - _TranslucencyOffset: -0.5
+    - _TransparentAlpha: 1
+    - _TreeRim: 0
+    - _TreeRim2: 0
+    - _UseBoxCubeRefl: 0
+    - _UseCharEffect: 0
+    - _UseCustomSpecularIntensity: 0
+    - _UseFlash: 0
+    - _UseNormal: 1
+    - _UseNormalUpBlend: 0
+    - _UsePlanarReflection: 0
+    - _UseReflectionCube: 1
+    - _UseTreeMode: 0
+    - _UseVertexAO: 0
+    - _ViewLightBais: 0
+    - _WindSizeXZ: 2
+    - _WindSizeY: 1
+    - _WindSpeed: 1
+    - _WindStrength: 0.7
+    - _WorkflowMode: 1
+    - _WriteMask: 255
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _isCustomReflectionCube: 0
+    - _isTestMode: 0
+    - _screenPosMirror: 0
+    - _selfEnableReflection: 1
+    - _shadowCull: 2
+    - _treeRimBorderIntensity: 1
+    - _treeRimBorderMax: 1
+    - _treeRimBorderMin: 0
+    - _useAlphaAddSmooth: 0
+    m_Colors:
+    - _AO_color: {r: 0.013349943, g: 0.18867922, b: 0.032830983, a: 1}
+    - _BBoxMax: {r: 0, g: 0, b: 0, a: 0}
+    - _BBoxMin: {r: 0, g: 0, b: 0, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BoxCubeReflBoxMax: {r: 5, g: 5, b: 5, a: 0}
+    - _BoxCubeReflBoxMin: {r: -5, g: -5, b: -5, a: 0}
+    - _BoxCubeReflCenter: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 0.875, g: 0.875, b: 0.875, a: 1}
+    - _Color_bottom: {r: 0.001334992, g: 0.09433961, b: 0.013100953, a: 1}
+    - _Color_middle: {r: 0.015040946, g: 0.24528301, b: 0.015040946, a: 1}
+    - _Color_top: {r: 0.11292719, g: 0.31132078, b: 0.027901383, a: 1}
+    - _CustomCubeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DistanceDissTargetPoint: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectAuraFlowTex_ST: {r: 1, g: 1, b: 0.1, a: 0.1}
+    - _EffectAuraInnerColor: {r: 0, g: 0, b: 1, a: 1}
+    - _EffectAuraNoiseBST: {r: 1, g: 1, b: 0.1, a: 0.1}
+    - _EffectAuraNoiseGST: {r: 1, g: 1, b: 0.1, a: 0.1}
+    - _EffectAuraNoiseRST: {r: 1, g: 1, b: 0.1, a: 0.1}
+    - _EffectAuraOutColor: {r: 0, g: 1, b: 1, a: 1}
+    - _EffectDissDissDir: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectDissEdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFresnelEdgeColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFresnelTopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFrozenFresnelColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFrozenHighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectFrozenLowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectLerpColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectMaskTextureST: {r: 1, g: 1, b: 0, a: 0}
+    - _EffectMulColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectRootPointWToLMatrixM0: {r: 1, g: 0, b: 0, a: 0}
+    - _EffectRootPointWToLMatrixM1: {r: 0, g: 1, b: 0, a: 0}
+    - _EffectRootPointWToLMatrixM2: {r: 0, g: 0, b: 1, a: 0}
+    - _EffectRootPointWToLMatrixM3: {r: 0, g: 0, b: 0, a: 1}
+    - _EffectTranferFrozenFreColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTranferFrozenHighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTranferFrozenIceCenterPosition: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTranferFrozenLowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTransferHighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTransferLowerColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EffectTransferVertex: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionLava_RampColorTint: {r: 1, g: 1, b: 1, a: 1}
+    - _EnviCubeMapPos: {r: 0, g: 0, b: 0, a: 0}
+    - _LavaNoiseControl: {r: 3.46, g: 1, b: 0, a: 0}
+    - _LavaNoiseDistortionControl: {r: 2.4, g: 1, b: 0, a: 0.075}
+    - _LightDirection: {r: 0, g: 0, b: 0, a: 1}
+    - _NoBakeTreeFrontLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _NoBakeTreeRimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ReflectionTint: {r: 1, g: 1, b: 1, a: 1}
+    - _RimColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SceneObjFlashColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TreeRimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TreeRimColor2: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &6632300279753009443
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4

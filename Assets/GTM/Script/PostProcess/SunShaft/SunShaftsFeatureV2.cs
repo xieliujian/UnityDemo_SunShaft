@@ -21,6 +21,7 @@ namespace GTM.URP.SunShaft
         /// 
         /// </summary>
         public static readonly string FINAL_BLEND_SHADER_NAME = "GTM/PostProcess/SunShaft/FinalBlendShader";
+        //public static readonly string FINAL_BLEND_SHADER_NAME = "LingRen/Urp/PPExtensions/FinalBlendShader";
 
         /// <summary>
         /// 
