@@ -45,7 +45,7 @@ MonoBehaviour:
     m_Value: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 2.36
+    m_Value: 1.55
     min: 0
     max: 5
   useSunLightColor:
@@ -66,11 +66,6 @@ MonoBehaviour:
   sunThresholdSky:
     m_OverrideState: 1
     m_Value: 0.673
-    min: 0
-    max: 1
-  sunThresholdDepth:
-    m_OverrideState: 1
-    m_Value: 0.609
     min: 0
     max: 1
   depthDownscalePow2:
