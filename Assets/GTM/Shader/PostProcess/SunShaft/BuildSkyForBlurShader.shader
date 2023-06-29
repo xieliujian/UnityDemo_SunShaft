@@ -28,27 +28,9 @@ Shader "GTM/PostProcess/SunShaft/BuildSkyForBlurShader"
             #pragma vertex vert
             #pragma fragment frag
 
-            // Includes
-            //#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
-            //#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-            //#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
-            //#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-            //#include "Packages/com.unity.shadergraph/ShaderGraphLibrary/ShaderVariablesFunctions.hlsl"
-            //#include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
-            //#include "SimpleNoise.hlsl"
-
             #define REQUIRE_DEPTH_TEXTURE
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Packing.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/NormalSurfaceGradient.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
-            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/EntityLighting.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/ShaderVariables.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/ShaderVariablesFunctions.hlsl"
-            #include "Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
             #include "SimpleNoise.hlsl"
 
             struct Attributes
