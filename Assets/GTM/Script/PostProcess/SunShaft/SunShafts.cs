@@ -3,7 +3,7 @@ using System;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace LR.Scene
+namespace GTM.URP.SunShaft
 {
     /// <summary>
     /// A <see cref="VolumeParameter"/> that holds a <c>LayerMask</c> value.

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace LR.URP.PPExtensions.common
+namespace GTM.URP.SunShaft
 {
     public static class PPUtils
     {

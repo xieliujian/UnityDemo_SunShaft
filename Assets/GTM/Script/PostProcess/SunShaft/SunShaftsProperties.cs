@@ -1,11 +1,10 @@
-﻿using LR.Scene;
-using LR.URP.PPExtensions.common;
+﻿
 using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace LR.URP.PPExtensions.sunshafts
+namespace GTM.URP.SunShaft
 {
     [Serializable]
     public class SunShaftsProperties

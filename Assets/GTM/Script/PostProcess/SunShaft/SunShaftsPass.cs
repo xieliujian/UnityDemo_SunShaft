@@ -2,7 +2,7 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace LR.URP.PPExtensions.sunshafts
+namespace GTM.URP.SunShaft
 {
     public class SunShaftsPass : ScriptableRenderPass
     {

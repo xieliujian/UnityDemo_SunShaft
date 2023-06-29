@@ -1,4 +1,6 @@
-﻿namespace LR.URP.PPExtensions.sunshafts
+﻿
+
+namespace GTM.URP.SunShaft
 {
     public enum OutlineMode
     {

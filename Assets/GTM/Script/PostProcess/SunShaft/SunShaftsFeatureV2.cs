@@ -1,11 +1,9 @@
-﻿using LR.Scene;
-using LR.URP.PPExtensions.common;
-//using LR.URP.PPExtensions.depthnormals;
+﻿
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace LR.URP.PPExtensions.sunshafts
+namespace GTM.URP.SunShaft
 {
     public class SunShaftsFeatureV2 : ScriptableRendererFeature
     {
