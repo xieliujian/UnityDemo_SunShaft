@@ -186,9 +186,9 @@ namespace GTM.URP.SunShaft
             m_Props.buildSkyMaterial.SetVector(SunPosition, sunScreenPoint);
             m_Props.buildSkyMaterial.SetFloat(SunThresholdSky, m_Props.sunThresholdSky);
             m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
-            Blit(cmd, m_Source, m_TmpSkyColorTarget.Identifier(), m_Props.buildSkyMaterial);
+            Blit(cmd, m_Source, m_TmpBlurTarget1.Identifier(), m_Props.buildSkyMaterial);
 
-            Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
+            //Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
 
             //2. Blur iteratively
             var radius = m_Props.blurRadius / m_Props.radiusDivider;
