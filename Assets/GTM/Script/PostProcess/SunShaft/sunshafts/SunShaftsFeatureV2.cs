@@ -18,8 +18,7 @@ namespace LR.URP.PPExtensions.sunshafts
         public SunShaftsProperties props;
         public RenderPassEvent normalsPassEvent = RenderPassEvent.BeforeRenderingPrepasses;
         public RenderPassEvent shaftsPassEvent = RenderPassEvent.AfterRenderingTransparents;
-        
-        //private DepthNormalsPass depthNormalsPass;
+
         private SunShaftsPass shaftsPass;
 
         public override void Create()

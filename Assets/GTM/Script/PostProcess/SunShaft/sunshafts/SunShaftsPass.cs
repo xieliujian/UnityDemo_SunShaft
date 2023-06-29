@@ -2,14 +2,6 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-// 优化
-// 1. 去掉tmpFullSizeTex，直接使用_TmpBlurTex1参与计算
-//    去掉这句话 Blit(cmd, tmpBlurTarget1.Identifier(), tmpFullSizeTex.Identifier());
-// 2. 缩放tmpSkyColorTarget的尺寸
-////cmd.GetTemporaryRT(tmpSkyColorTarget.id, opaqueDesc.width, opaqueDesc.height, 0, props.filterMode);
-//cmd.GetTemporaryRT(tmpSkyColorTarget.id, dstWidth, dstHeight, 0, props.filterMode);
-
-
 namespace LR.URP.PPExtensions.sunshafts
 {
     public class SunShaftsPass : ScriptableRenderPass
@@ -107,7 +99,6 @@ namespace LR.URP.PPExtensions.sunshafts
 
             if (props.IsRenderSkyOutline())
             {
-                //cmd.GetTemporaryRT(tmpSkyColorTarget.id, opaqueDesc.width, opaqueDesc.height, 0, props.filterMode);
                 cmd.GetTemporaryRT(tmpSkyColorTarget.id, dstWidth, dstHeight, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
             }
         }
@@ -178,9 +169,6 @@ namespace LR.URP.PPExtensions.sunshafts
                     tmpDepthColorTarget.Identifier(), props.buildDepthMaterial);
 
                 ////1.5 run Sobel edge detector for depth texture
-                //props.outlineMaterial.SetFloat(OutlineThickness, props.depthOutlineThickness);
-                //props.outlineMaterial.SetFloat(OutlineMultiplier, props.depthOutlineMultiplier);
-                //props.outlineMaterial.SetFloat(OutlineBias, props.depthOutlineBias);
                 Blit(cmd, tmpDepthColorTarget.Identifier(), tmpFullSizeTex.Identifier(), props.outlineMaterial);
                 Blit(cmd, tmpFullSizeTex.Identifier(), tmpDepthColorTarget.Identifier());
             }
