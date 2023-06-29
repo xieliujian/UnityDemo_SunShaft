@@ -98,7 +98,7 @@ Shader "GTM/PostProcess/SunShaft/FinalBlendShader"
 
                 // 
                 float4 color = mainTexColor + shaftTexColor;
-                //color = mainTexColor;
+                //color = shaftTexColor;
 
                 return color;
             }
