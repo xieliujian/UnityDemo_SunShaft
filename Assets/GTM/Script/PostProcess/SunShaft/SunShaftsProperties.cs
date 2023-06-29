@@ -141,9 +141,9 @@ namespace GTM.URP.SunShaft
         /// </summary>
         public void CacheAllMaterial()
         {
-            PPUtils.GetMaterial(ref buildSkyMaterial, SunShaftsFeatureV2.BUILD_SKY_SHADER_NAME);
-            PPUtils.GetMaterial(ref blurMaterial, SunShaftsFeatureV2.BLUR_SHADER_NAME);
-            PPUtils.GetMaterial(ref finalBlendMaterial, SunShaftsFeatureV2.FINAL_BLEND_SHADER_NAME);
+            SunShaftUtil.GetMaterial(ref buildSkyMaterial, SunShaftsFeatureV2.BUILD_SKY_SHADER_NAME);
+            SunShaftUtil.GetMaterial(ref blurMaterial, SunShaftsFeatureV2.BLUR_SHADER_NAME);
+            SunShaftUtil.GetMaterial(ref finalBlendMaterial, SunShaftsFeatureV2.FINAL_BLEND_SHADER_NAME);
         }
 
         /// <summary>

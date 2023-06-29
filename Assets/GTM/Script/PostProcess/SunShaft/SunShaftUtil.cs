@@ -2,7 +2,7 @@
 
 namespace GTM.URP.SunShaft
 {
-    public static class PPUtils
+    public static class SunShaftUtil
     {
         public static void GetMaterial(ref Material mat, string shaderName)
         {
