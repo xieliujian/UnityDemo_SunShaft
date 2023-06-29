@@ -33,8 +33,6 @@ namespace GTM.URP.SunShaft
 
         [Tooltip("LayerMask to render to depth normals texture")]
         public LayerMask normalsLayerMask = -1; //All by default
-        [Tooltip("What parts to use for outline: only sky bounded by geometry or both sky + geometry")]
-        public OutlineMode outlineMode = OutlineMode.OnlySky;
 
         [Header("Sun params")] 
         public bool useSunLightColor = true;
@@ -92,11 +90,6 @@ namespace GTM.URP.SunShaft
         public SunShafts sunShafts
         {
             get { return m_SunShafts; }
-        }
-
-        public bool IsRenderSkyOutline()
-        {
-            return outlineMode == OutlineMode.OnlySky;
         }
 
         public bool CanVolumeRender()

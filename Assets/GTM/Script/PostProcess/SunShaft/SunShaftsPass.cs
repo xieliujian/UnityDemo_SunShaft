@@ -195,18 +195,12 @@ namespace GTM.URP.SunShaft
             InitTmpTextures(cmd, cameraTargetDescriptor);
 
             //2. Blit sky cutted off by geometry
-            if (m_Props.IsRenderSkyOutline())
-            {
-                m_Props.buildSkyMaterial.SetVector(SunPosition, sunScreenPoint);
-                m_Props.buildSkyMaterial.SetFloat(SunThresholdSky, m_Props.sunThresholdSky);
-                m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
-                Blit(cmd, m_Source, m_TmpSkyColorTarget.Identifier(), m_Props.buildSkyMaterial);
-            }
+            m_Props.buildSkyMaterial.SetVector(SunPosition, sunScreenPoint);
+            m_Props.buildSkyMaterial.SetFloat(SunThresholdSky, m_Props.sunThresholdSky);
+            m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
+            Blit(cmd, m_Source, m_TmpSkyColorTarget.Identifier(), m_Props.buildSkyMaterial);
 
-            if (m_Props.IsRenderSkyOutline())
-            {
-                Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
-            }
+            Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
 
             //2. Blur iteratively
             var radius = m_Props.blurRadius / m_Props.radiusDivider;
@@ -270,10 +264,7 @@ namespace GTM.URP.SunShaft
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget2.id);
             cmd.ReleaseTemporaryRT(m_TmpFullSizeTex.id);
 
-            if (m_Props.IsRenderSkyOutline())
-            {
-                cmd.ReleaseTemporaryRT(m_TmpSkyColorTarget.id);
-            }
+            cmd.ReleaseTemporaryRT(m_TmpSkyColorTarget.id);
         }
 
         /// <summary>
@@ -346,17 +337,7 @@ namespace GTM.URP.SunShaft
             cmd.GetTemporaryRT(m_TmpBlurTarget1.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
             cmd.GetTemporaryRT(m_TmpBlurTarget2.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
 
-            bool isgetfullsizetex = false;
-
-            if (isgetfullsizetex)
-            {
-                cmd.GetTemporaryRT(m_TmpFullSizeTex.id, opaqueDesc.width, opaqueDesc.height, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
-
-            if (m_Props.IsRenderSkyOutline())
-            {
-                cmd.GetTemporaryRT(m_TmpSkyColorTarget.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
+            cmd.GetTemporaryRT(m_TmpSkyColorTarget.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
         }
     }
 }
