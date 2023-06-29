@@ -6,21 +6,49 @@ namespace GTM.URP.SunShaft
 {
     public class SunShaftsPass : ScriptableRenderPass
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int SunPosition = Shader.PropertyToID("_SunPosition");
+
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int BlurStep = Shader.PropertyToID("_BlurStep");
+        
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
+
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int ShaftsColor = Shader.PropertyToID("_ShaftsColor");
+
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int SunThresholdSky = Shader.PropertyToID("_SunThresholdSky");
+
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int SkyNoiseScale = Shader.PropertyToID("_SkyNoiseScale");
 
+        /// <summary>
+        /// 
+        /// </summary>
         private static readonly int UseStencilMaskTex = Shader.PropertyToID("_UseStencilMaskTex");
 
-        private static readonly int OutlineThickness = Shader.PropertyToID("_OutlineThickness");
-        private static readonly int OutlineMultiplier = Shader.PropertyToID("_OutlineMultiplier");
-        private static readonly int OutlineBias = Shader.PropertyToID("_OutlineBias");
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly int stencilMaskTex = Shader.PropertyToID("_StencilMaskTex");
 
+        /// <summary>
+        /// 
+        /// </summary>
         const string COMMAND_BUFFER_NAME = "ShaftsRendering";
 
         /// <summary>
@@ -37,11 +65,6 @@ namespace GTM.URP.SunShaft
         /// 
         /// </summary>
         RenderTargetHandle m_Destination;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        RenderTargetHandle m_DepthNormalsSource;
 
         /// <summary>
         /// 
@@ -89,8 +112,6 @@ namespace GTM.URP.SunShaft
         public SunShaftsPass(SunShaftsProperties props)
         {
             m_Props = props;
-
-            m_DepthNormalsSource.Init(SunShaftsFeatureV2.depthNormalsTextureName);
 
             m_TmpDepthColorTarget.Init("_TmpDepthColorTex");
             m_TmpSkyColorTarget.Init("_TmpSkyColorTex");
@@ -180,17 +201,6 @@ namespace GTM.URP.SunShaft
                 m_Props.buildSkyMaterial.SetFloat(SunThresholdSky, m_Props.sunThresholdSky);
                 m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
                 Blit(cmd, m_Source, m_TmpSkyColorTarget.Identifier(), m_Props.buildSkyMaterial);
-
-                if (m_Props.useSkyEdgesForShafts)
-                {
-                    //2.5 run Sobel edge detector for sky texture
-                    m_Props.outlineMaterial.SetFloat(OutlineThickness, m_Props.skyOutlineThickness);
-                    m_Props.outlineMaterial.SetFloat(OutlineMultiplier, m_Props.skyOutlineMultiplier);
-                    m_Props.outlineMaterial.SetFloat(OutlineBias, m_Props.skyOutlineBias);
-                    Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpFullSizeTex.Identifier(), m_Props.outlineMaterial);
-                    //TODO: useless blit, can be removed by setting different global textures
-                    Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpSkyColorTarget.Identifier());
-                }
             }
 
             if (m_Props.IsRenderSkyOutline())
@@ -275,9 +285,6 @@ namespace GTM.URP.SunShaft
                 return false;
 
             if (m_Props.buildSkyMaterial == null)
-                return false;
-
-            if (m_Props.mixSkyDepthMaterial == null)
                 return false;
 
             if (m_Props.blurMaterial == null)

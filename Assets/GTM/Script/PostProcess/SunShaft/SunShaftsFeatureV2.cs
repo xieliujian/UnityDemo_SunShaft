@@ -8,10 +8,8 @@ namespace GTM.URP.SunShaft
     public class SunShaftsFeatureV2 : ScriptableRendererFeature
     {
         public static readonly string buildSkyShaderName = "LingRen/Urp/PPExtensions/BuildSkyForBlurShader";
-        public static readonly string mixSkyDepthShaderName = "LingRen/Urp/PPExtensions/MixSkyDepthShader";
         public static readonly string blurShaderName = "LingRen/Urp/PPExtensions/DirectionalBlurShader";
         public static readonly string finalBlendShaderName = "LingRen/Urp/PPExtensions/FinalBlendShader";
-        public static readonly string depthNormalsTextureName = "_SunShaftsDepthNormals";
 
         /// <summary>
         /// 

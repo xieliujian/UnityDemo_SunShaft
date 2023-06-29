@@ -52,14 +52,8 @@ namespace GTM.URP.SunShaft
         public float sunThresholdSky = 0.75f;
         [Range(0, 1)]
         public float sunThresholdDepth = 0.75f;
-        
-        [Header("Sky params - for SkyOnly mode or both")]
-        [Tooltip("Highlight only edges, not the whole sky")]
-        public bool useSkyEdgesForShafts;
+
         public float skyNoiseScale = 75f;
-        public int skyOutlineThickness = 1;
-        public float skyOutlineMultiplier = 5f;
-        public float skyOutlineBias = 25f;
 
         [Header("Blur params")]
         [Range(0, 4)]
@@ -80,34 +74,14 @@ namespace GTM.URP.SunShaft
         public bool useStencilMaskTex = false;
 
         [NonSerialized]
-        public Shader depthNormalsShader;
-        [NonSerialized]
-        public Shader buildDepthNormalsShader;
-        [NonSerialized]
-        public Shader buildDepthShader;
-        [NonSerialized]
-        public Shader outlineShader;
-        [NonSerialized]
         public Shader buildSkyShader;
-        [NonSerialized]
-        public Shader mixSkyDepthShader;
         [NonSerialized]
         public Shader blurShader;
         [NonSerialized]
         public Shader finalBlendShader;
         
         [NonSerialized]
-        public Material renderDepthNormalsMaterial;
-        [NonSerialized]
-        public Material buildDepthNormalMaterial;
-        [NonSerialized]
-        public Material buildDepthMaterial;
-        [NonSerialized]
         public Material buildSkyMaterial;
-        [NonSerialized]
-        public Material outlineMaterial;
-        [NonSerialized]
-        public Material mixSkyDepthMaterial;
         [NonSerialized]
         public Material blurMaterial;
         [NonSerialized]
@@ -122,8 +96,7 @@ namespace GTM.URP.SunShaft
 
         public bool IsRenderSkyOutline()
         {
-            return outlineMode == OutlineMode.OnlySky
-                   || outlineMode == OutlineMode.SkyAndDepthGeometry;
+            return outlineMode == OutlineMode.OnlySky;
         }
 
         public bool CanVolumeRender()
@@ -177,7 +150,6 @@ namespace GTM.URP.SunShaft
         public void CacheAllMaterial()
         {
             PPUtils.GetMaterial(ref buildSkyMaterial, SunShaftsFeatureV2.buildSkyShaderName);
-            PPUtils.GetMaterial(ref mixSkyDepthMaterial, SunShaftsFeatureV2.mixSkyDepthShaderName);
             PPUtils.GetMaterial(ref blurMaterial, SunShaftsFeatureV2.blurShaderName);
             PPUtils.GetMaterial(ref finalBlendMaterial, SunShaftsFeatureV2.finalBlendShaderName);
         }
