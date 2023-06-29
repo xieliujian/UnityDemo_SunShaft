@@ -69,11 +69,6 @@ namespace GTM.URP.SunShaft
         /// <summary>
         /// 
         /// </summary>
-        RenderTargetHandle m_TmpSkyColorTarget;
-
-        /// <summary>
-        /// 
-        /// </summary>
         RenderTargetHandle m_TmpBlurTarget1;
 
         /// <summary>
@@ -103,10 +98,7 @@ namespace GTM.URP.SunShaft
         {
             m_Props = props;
 
-            m_TmpSkyColorTarget.Init("_TmpSkyColorTex");
-
             m_TmpDestination.Init("_TmpDestinationBuffer");
-
             m_TmpBlurTarget1.Init("_TmpBlurTex1");
             m_TmpBlurTarget2.Init("_TmpBlurTex2");
         }
@@ -188,8 +180,6 @@ namespace GTM.URP.SunShaft
             m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
             Blit(cmd, m_Source, m_TmpBlurTarget1.Identifier(), m_Props.buildSkyMaterial);
 
-            //Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
-
             //2. Blur iteratively
             var radius = m_Props.blurRadius / m_Props.radiusDivider;
             const int shaderBlurIterationsCount = 6;
@@ -248,7 +238,6 @@ namespace GTM.URP.SunShaft
         {
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget1.id);
             cmd.ReleaseTemporaryRT(m_TmpBlurTarget2.id);
-            cmd.ReleaseTemporaryRT(m_TmpSkyColorTarget.id);
         }
 
         /// <summary>
@@ -320,8 +309,6 @@ namespace GTM.URP.SunShaft
             var dstHeight = opaqueDesc.height >> m_Props.depthDownscalePow2;
             cmd.GetTemporaryRT(m_TmpBlurTarget1.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
             cmd.GetTemporaryRT(m_TmpBlurTarget2.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
-
-            cmd.GetTemporaryRT(m_TmpSkyColorTarget.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
         }
     }
 }
