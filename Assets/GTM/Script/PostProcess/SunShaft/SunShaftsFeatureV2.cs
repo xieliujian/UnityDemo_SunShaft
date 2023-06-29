@@ -12,13 +12,25 @@ namespace GTM.URP.SunShaft
         public static readonly string blurShaderName = "LingRen/Urp/PPExtensions/DirectionalBlurShader";
         public static readonly string finalBlendShaderName = "LingRen/Urp/PPExtensions/FinalBlendShader";
         public static readonly string depthNormalsTextureName = "_SunShaftsDepthNormals";
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        SunShaftsPass m_ShaftsPass;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public SunShaftsProperties props;
-        public RenderPassEvent normalsPassEvent = RenderPassEvent.BeforeRenderingPrepasses;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public RenderPassEvent shaftsPassEvent = RenderPassEvent.AfterRenderingTransparents;
 
-        private SunShaftsPass shaftsPass;
-
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Create()
         {
             if (props == null)
@@ -26,7 +38,7 @@ namespace GTM.URP.SunShaft
                 props = new SunShaftsProperties();
             }
             
-            shaftsPass = new SunShaftsPass(props)
+            m_ShaftsPass = new SunShaftsPass(props)
             {
                 renderPassEvent = shaftsPassEvent,
                 originRenderPassEvent = shaftsPassEvent,
@@ -46,13 +58,11 @@ namespace GTM.URP.SunShaft
 
             var camera = renderingData.cameraData.camera;
             if (camera.cameraType == CameraType.Reflection || camera.cameraType == CameraType.Preview)
-            {
                 return;
-            }
 
             RenderTargetIdentifier cameraColorTarget = renderer.cameraColorTarget;
-            shaftsPass.Setup(cameraColorTarget, RenderTargetHandle.CameraTarget);
-            renderer.EnqueuePass(shaftsPass);
+            m_ShaftsPass.Setup(cameraColorTarget, RenderTargetHandle.CameraTarget);
+            renderer.EnqueuePass(m_ShaftsPass);
         }
     }
 }

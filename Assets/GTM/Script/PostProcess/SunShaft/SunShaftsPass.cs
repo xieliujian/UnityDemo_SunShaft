@@ -7,7 +7,6 @@ namespace GTM.URP.SunShaft
     public class SunShaftsPass : ScriptableRenderPass
     {
         private static readonly int SunPosition = Shader.PropertyToID("_SunPosition");
-        private static readonly int DepthValueCutOff = Shader.PropertyToID("_DepthValueCutOff");
         private static readonly int BlurStep = Shader.PropertyToID("_BlurStep");
         private static readonly int Intensity = Shader.PropertyToID("_Intensity");
         private static readonly int ShaftsColor = Shader.PropertyToID("_ShaftsColor");
@@ -25,101 +24,117 @@ namespace GTM.URP.SunShaft
 
         const string COMMAND_BUFFER_NAME = "ShaftsRendering";
 
-        private SunShaftsProperties props;
+        /// <summary>
+        /// 
+        /// </summary>
+        SunShaftsProperties m_Props;
 
-        private RenderTargetIdentifier source;
-        private RenderTargetHandle destination;
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetIdentifier m_Source;
 
-        private RenderTargetHandle depthNormalsSource;
-        private RenderTargetHandle tmpDepthColorTarget;
-        private RenderTargetHandle tmpSkyColorTarget;
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_Destination;
 
-        private RenderTargetHandle tmpBlurTarget1;
-        private RenderTargetHandle tmpBlurTarget2;
-        private RenderTargetHandle tmpFullSizeTex;
-        private RenderTargetHandle tmpDestination;
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_DepthNormalsSource;
 
-        private RenderTargetHandle temHandle;
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpDepthColorTarget;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpSkyColorTarget;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpBlurTarget1;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpBlurTarget2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpFullSizeTex;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TmpDestination;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        RenderTargetHandle m_TemHandle;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public RenderPassEvent originRenderPassEvent { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public SunShaftsPass(SunShaftsProperties props)
         {
-            this.props = props;
+            m_Props = props;
 
-            depthNormalsSource.Init(SunShaftsFeatureV2.depthNormalsTextureName);
+            m_DepthNormalsSource.Init(SunShaftsFeatureV2.depthNormalsTextureName);
 
-            tmpDepthColorTarget.Init("_TmpDepthColorTex");
-            tmpSkyColorTarget.Init("_TmpSkyColorTex");
+            m_TmpDepthColorTarget.Init("_TmpDepthColorTex");
+            m_TmpSkyColorTarget.Init("_TmpSkyColorTex");
 
-            tmpFullSizeTex.Init("_ShaftsTex");
-            tmpDestination.Init("_TmpDestinationBuffer");
+            m_TmpFullSizeTex.Init("_ShaftsTex");
+            m_TmpDestination.Init("_TmpDestinationBuffer");
 
-            tmpBlurTarget1.Init("_TmpBlurTex1");
-            tmpBlurTarget2.Init("_TmpBlurTex2");
+            m_TmpBlurTarget1.Init("_TmpBlurTex1");
+            m_TmpBlurTarget2.Init("_TmpBlurTex2");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Setup(RenderTargetIdentifier source, RenderTargetHandle destination)
         {
-            this.source = source;
-            this.destination = destination;
+            m_Source = source;
+            m_Destination = destination;
         }
 
-        private void InitTmpTextures(CommandBuffer cmd, RenderTextureDescriptor cameraTargetDescriptor)
-        {
-            var opaqueDesc = cameraTargetDescriptor;
-            opaqueDesc.depthBufferBits = 0;
-            opaqueDesc.msaaSamples = 1;
-
-            var dstWidth = opaqueDesc.width >> props.depthDownscalePow2;
-            var dstHeight = opaqueDesc.height >> props.depthDownscalePow2;
-            cmd.GetTemporaryRT(tmpBlurTarget1.id, dstWidth, dstHeight, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
-            cmd.GetTemporaryRT(tmpBlurTarget2.id, dstWidth, dstHeight, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
-
-            bool isgetfullsizetex = false;
-            if (props.IsRenderOutlineGeometry())
-            {
-                isgetfullsizetex = true;
-            }
-            else if (props.IsRenderSkyOutline() && props.useSkyEdgesForShafts)
-            {
-                isgetfullsizetex = true;
-            }
-
-            if (isgetfullsizetex)
-            {
-                cmd.GetTemporaryRT(tmpFullSizeTex.id, opaqueDesc.width, opaqueDesc.height, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
-
-
-            if (props.IsRenderOutlineGeometry())
-            {
-                cmd.GetTemporaryRT(tmpDepthColorTarget.id, opaqueDesc.width, opaqueDesc.height, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
-
-            if (props.IsRenderSkyOutline())
-            {
-                cmd.GetTemporaryRT(tmpSkyColorTarget.id, dstWidth, dstHeight, 0, props.filterMode, cameraTargetDescriptor.colorFormat);
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
             ExecuteRender(context, ref renderingData);
         }
 
-        private void ExecuteRender(ScriptableRenderContext context, ref RenderingData renderingData)
+        /// <summary>
+        /// 
+        /// </summary>
+        void ExecuteRender(ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            if (props == null)
+            if (m_Props == null)
                 return;
 
-            bool canrender = props.CanVolumeRender();
+            bool canrender = m_Props.CanVolumeRender();
             if (!canrender)
                 return;
 
-            if (!props.forceOn)
+            if (!m_Props.forceOn)
             {
-                bool isvollightopen = props.IsVolumeLightSwitchOpen();
+                bool isvollightopen = m_Props.IsVolumeLightSwitchOpen();
                 if (!isvollightopen)
                     return;
             }
@@ -129,22 +144,22 @@ namespace GTM.URP.SunShaft
                 return;
 
             Vector3 sunScreenPoint;
-            var cansunrender = props.CanSunRender(camera, out sunScreenPoint);
+            var cansunrender = m_Props.CanSunRender(camera, out sunScreenPoint);
             if (!cansunrender)
                 return;
 
-            if (props.useRenderPassEvent)
+            if (m_Props.useRenderPassEvent)
             {
-                renderPassEvent = props.renderPassEvent;
+                renderPassEvent = m_Props.renderPassEvent;
             }
             else
             {
                 renderPassEvent = originRenderPassEvent;
             }
 
-            if (props != null)
+            if (m_Props != null)
             {
-                props.CacheAllMaterial();
+                m_Props.CacheAllMaterial();
             }
 
             bool isallmatload = IsAllMaterialLoad();
@@ -160,100 +175,100 @@ namespace GTM.URP.SunShaft
             InitTmpTextures(cmd, cameraTargetDescriptor);
 
             //1. blit depth as color to color texture
-            if (props.IsRenderOutlineGeometry())
+            if (m_Props.IsRenderOutlineGeometry())
             {
-                props.buildDepthMaterial.SetVector(SunPosition, sunScreenPoint);
-                props.buildDepthMaterial.SetFloat(SunThresholdDepth, props.sunThresholdDepth);
-                //props.buildDepthMaterial.SetFloat(DepthValueCutOff, props.depthValueCutOff);
+                m_Props.buildDepthMaterial.SetVector(SunPosition, sunScreenPoint);
+                m_Props.buildDepthMaterial.SetFloat(SunThresholdDepth, m_Props.sunThresholdDepth);
+                //m_Props.buildDepthMaterial.SetFloat(DepthValueCutOff, m_Props.depthValueCutOff);
                 Blit(cmd, renderingData.cameraData.renderer.cameraDepthTarget,
-                    tmpDepthColorTarget.Identifier(), props.buildDepthMaterial);
+                    m_TmpDepthColorTarget.Identifier(), m_Props.buildDepthMaterial);
 
                 ////1.5 run Sobel edge detector for depth texture
-                Blit(cmd, tmpDepthColorTarget.Identifier(), tmpFullSizeTex.Identifier(), props.outlineMaterial);
-                Blit(cmd, tmpFullSizeTex.Identifier(), tmpDepthColorTarget.Identifier());
+                Blit(cmd, m_TmpDepthColorTarget.Identifier(), m_TmpFullSizeTex.Identifier(), m_Props.outlineMaterial);
+                Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpDepthColorTarget.Identifier());
             }
 
             //2. Blit sky cutted off by geometry
-            if (props.IsRenderSkyOutline())
+            if (m_Props.IsRenderSkyOutline())
             {
-                props.buildSkyMaterial.SetVector(SunPosition, sunScreenPoint);
-                props.buildSkyMaterial.SetFloat(SunThresholdSky, props.sunThresholdSky);
-                props.buildSkyMaterial.SetFloat(SkyNoiseScale, props.skyNoiseScale);
-                Blit(cmd, source, tmpSkyColorTarget.Identifier(), props.buildSkyMaterial);
+                m_Props.buildSkyMaterial.SetVector(SunPosition, sunScreenPoint);
+                m_Props.buildSkyMaterial.SetFloat(SunThresholdSky, m_Props.sunThresholdSky);
+                m_Props.buildSkyMaterial.SetFloat(SkyNoiseScale, m_Props.skyNoiseScale);
+                Blit(cmd, m_Source, m_TmpSkyColorTarget.Identifier(), m_Props.buildSkyMaterial);
 
-                if (props.useSkyEdgesForShafts)
+                if (m_Props.useSkyEdgesForShafts)
                 {
                     //2.5 run Sobel edge detector for sky texture
-                    props.outlineMaterial.SetFloat(OutlineThickness, props.skyOutlineThickness);
-                    props.outlineMaterial.SetFloat(OutlineMultiplier, props.skyOutlineMultiplier);
-                    props.outlineMaterial.SetFloat(OutlineBias, props.skyOutlineBias);
-                    Blit(cmd, tmpSkyColorTarget.Identifier(), tmpFullSizeTex.Identifier(), props.outlineMaterial);
+                    m_Props.outlineMaterial.SetFloat(OutlineThickness, m_Props.skyOutlineThickness);
+                    m_Props.outlineMaterial.SetFloat(OutlineMultiplier, m_Props.skyOutlineMultiplier);
+                    m_Props.outlineMaterial.SetFloat(OutlineBias, m_Props.skyOutlineBias);
+                    Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpFullSizeTex.Identifier(), m_Props.outlineMaterial);
                     //TODO: useless blit, can be removed by setting different global textures
-                    Blit(cmd, tmpFullSizeTex.Identifier(), tmpSkyColorTarget.Identifier());
+                    Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpSkyColorTarget.Identifier());
                 }
             }
 
-            if (props.IsRenderBothOutlines())
+            if (m_Props.IsRenderBothOutlines())
             {
-                cmd.SetGlobalTexture(tmpDepthColorTarget.id, tmpDepthColorTarget.Identifier());
-                cmd.SetGlobalTexture(tmpSkyColorTarget.id, tmpSkyColorTarget.Identifier());
-                //tmpFullSizeTex will not be used, just add two textures above to 1st blur target
-                Blit(cmd, tmpFullSizeTex.Identifier(), tmpBlurTarget1.Identifier(), props.mixSkyDepthMaterial);
+                cmd.SetGlobalTexture(m_TmpDepthColorTarget.id, m_TmpDepthColorTarget.Identifier());
+                cmd.SetGlobalTexture(m_TmpSkyColorTarget.id, m_TmpSkyColorTarget.Identifier());
+                //m_TmpFullSizeTex will not be used, just add two textures above to 1st blur target
+                Blit(cmd, m_TmpFullSizeTex.Identifier(), m_TmpBlurTarget1.Identifier(), m_Props.mixSkyDepthMaterial);
             }
-            else if (props.IsRenderSkyOutline())
+            else if (m_Props.IsRenderSkyOutline())
             {
-                Blit(cmd, tmpSkyColorTarget.Identifier(), tmpBlurTarget1.Identifier());
+                Blit(cmd, m_TmpSkyColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
             }
-            else if (props.IsRenderOutlineGeometry())
+            else if (m_Props.IsRenderOutlineGeometry())
             {
-                Blit(cmd, tmpDepthColorTarget.Identifier(), tmpBlurTarget1.Identifier());
+                Blit(cmd, m_TmpDepthColorTarget.Identifier(), m_TmpBlurTarget1.Identifier());
             }
 
             //2. Blur iteratively
-            var radius = props.blurRadius / props.radiusDivider;
+            var radius = m_Props.blurRadius / m_Props.radiusDivider;
             const int shaderBlurIterationsCount = 6;
-            var iterationScaler = (float)shaderBlurIterationsCount / props.radiusDivider;
-            props.blurMaterial.SetVector(SunPosition, sunScreenPoint);
+            var iterationScaler = (float)shaderBlurIterationsCount / m_Props.radiusDivider;
+            m_Props.blurMaterial.SetVector(SunPosition, sunScreenPoint);
 
-            for (int i = 0; i < props.blurStepsCount; i++)
+            for (int i = 0; i < m_Props.blurStepsCount; i++)
             {
-                props.blurMaterial.SetFloat(BlurStep, radius);
-                Blit(cmd, tmpBlurTarget1.Identifier(), tmpBlurTarget2.Identifier(), props.blurMaterial);
+                m_Props.blurMaterial.SetFloat(BlurStep, radius);
+                Blit(cmd, m_TmpBlurTarget1.Identifier(), m_TmpBlurTarget2.Identifier(), m_Props.blurMaterial);
 
-                radius = props.blurRadius * (i * 2f + 1f) * iterationScaler;
-                props.blurMaterial.SetFloat(BlurStep, radius);
-                Blit(cmd, tmpBlurTarget2.Identifier(), tmpBlurTarget1.Identifier(), props.blurMaterial);
+                radius = m_Props.blurRadius * (i * 2f + 1f) * iterationScaler;
+                m_Props.blurMaterial.SetFloat(BlurStep, radius);
+                Blit(cmd, m_TmpBlurTarget2.Identifier(), m_TmpBlurTarget1.Identifier(), m_Props.blurMaterial);
 
-                radius = props.blurRadius * (i * 2f + 2f) * iterationScaler;
+                radius = m_Props.blurRadius * (i * 2f + 2f) * iterationScaler;
             }
 
-            props.finalBlendMaterial.SetFloat(Intensity, props.intensity);
-            var shaftsColor = props.useSunLightColor && RenderSettings.sun
+            m_Props.finalBlendMaterial.SetFloat(Intensity, m_Props.intensity);
+            var shaftsColor = m_Props.useSunLightColor && RenderSettings.sun
                 ? RenderSettings.sun.color
-                : props.shaftsColor;
-            props.finalBlendMaterial.SetColor(ShaftsColor, shaftsColor);
+                : m_Props.shaftsColor;
+            m_Props.finalBlendMaterial.SetColor(ShaftsColor, shaftsColor);
 
             // 设置是否使用Mask Tex
-            props.finalBlendMaterial.SetFloat(UseStencilMaskTex, props.useStencilMaskTex ? 1f : 0f);
+            m_Props.finalBlendMaterial.SetFloat(UseStencilMaskTex, m_Props.useStencilMaskTex ? 1f : 0f);
 
             // 设置角色模板材质
             cmd.SetGlobalTexture(stencilMaskTex, stencilMaskTex);
 
-            if (destination == RenderTargetHandle.CameraTarget)
+            if (m_Destination == RenderTargetHandle.CameraTarget)
             {
                 var cameraDesc = cameraTargetDescriptor;
                 cameraDesc.depthBufferBits = 0;
 
-                cmd.GetTemporaryRT(tmpDestination.id, cameraDesc, props.filterMode);
+                cmd.GetTemporaryRT(m_TmpDestination.id, cameraDesc, m_Props.filterMode);
 
-                temHandle = tmpDestination;
+                m_TemHandle = m_TmpDestination;
 
-                Blit(cmd, source, temHandle.Identifier(), props.finalBlendMaterial);
-                Blit(cmd, temHandle.Identifier(), source);
+                Blit(cmd, m_Source, m_TemHandle.Identifier(), m_Props.finalBlendMaterial);
+                Blit(cmd, m_TemHandle.Identifier(), m_Source);
             }
             else
             {
-                Blit(cmd, source, destination.Identifier(), props.finalBlendMaterial);
+                Blit(cmd, m_Source, m_Destination.Identifier(), m_Props.finalBlendMaterial);
             }
 
             CleanupTmpTextures(cmd);
@@ -262,38 +277,44 @@ namespace GTM.URP.SunShaft
             CommandBufferPool.Release(cmd);
         }
 
-        private void CleanupTmpTextures(CommandBuffer cmd)
+        /// <summary>
+        /// 
+        /// </summary>
+        void CleanupTmpTextures(CommandBuffer cmd)
         {
-            cmd.ReleaseTemporaryRT(tmpBlurTarget1.id);
-            cmd.ReleaseTemporaryRT(tmpBlurTarget2.id);
-            cmd.ReleaseTemporaryRT(tmpFullSizeTex.id);
+            cmd.ReleaseTemporaryRT(m_TmpBlurTarget1.id);
+            cmd.ReleaseTemporaryRT(m_TmpBlurTarget2.id);
+            cmd.ReleaseTemporaryRT(m_TmpFullSizeTex.id);
 
-            if (props.IsRenderOutlineGeometry())
+            if (m_Props.IsRenderOutlineGeometry())
             {
-                cmd.ReleaseTemporaryRT(tmpDepthColorTarget.id);
+                cmd.ReleaseTemporaryRT(m_TmpDepthColorTarget.id);
             }
 
-            if (props.IsRenderSkyOutline())
+            if (m_Props.IsRenderSkyOutline())
             {
-                cmd.ReleaseTemporaryRT(tmpSkyColorTarget.id);
+                cmd.ReleaseTemporaryRT(m_TmpSkyColorTarget.id);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         bool IsAllMaterialLoad()
         {
-            if (props == null)
+            if (m_Props == null)
                 return false;
 
-            if (props.buildSkyMaterial == null)
+            if (m_Props.buildSkyMaterial == null)
                 return false;
 
-            if (props.mixSkyDepthMaterial == null)
+            if (m_Props.mixSkyDepthMaterial == null)
                 return false;
 
-            if (props.blurMaterial == null)
+            if (m_Props.blurMaterial == null)
                 return false;
 
-            if (props.finalBlendMaterial == null)
+            if (m_Props.finalBlendMaterial == null)
                 return false;
 
             return true;
@@ -333,6 +354,47 @@ namespace GTM.URP.SunShaft
             }
 
             return cameraTargetDescriptor;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        void InitTmpTextures(CommandBuffer cmd, RenderTextureDescriptor cameraTargetDescriptor)
+        {
+            var opaqueDesc = cameraTargetDescriptor;
+            opaqueDesc.depthBufferBits = 0;
+            opaqueDesc.msaaSamples = 1;
+
+            var dstWidth = opaqueDesc.width >> m_Props.depthDownscalePow2;
+            var dstHeight = opaqueDesc.height >> m_Props.depthDownscalePow2;
+            cmd.GetTemporaryRT(m_TmpBlurTarget1.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
+            cmd.GetTemporaryRT(m_TmpBlurTarget2.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
+
+            bool isgetfullsizetex = false;
+            if (m_Props.IsRenderOutlineGeometry())
+            {
+                isgetfullsizetex = true;
+            }
+            else if (m_Props.IsRenderSkyOutline() && m_Props.useSkyEdgesForShafts)
+            {
+                isgetfullsizetex = true;
+            }
+
+            if (isgetfullsizetex)
+            {
+                cmd.GetTemporaryRT(m_TmpFullSizeTex.id, opaqueDesc.width, opaqueDesc.height, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
+            }
+
+
+            if (m_Props.IsRenderOutlineGeometry())
+            {
+                cmd.GetTemporaryRT(m_TmpDepthColorTarget.id, opaqueDesc.width, opaqueDesc.height, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
+            }
+
+            if (m_Props.IsRenderSkyOutline())
+            {
+                cmd.GetTemporaryRT(m_TmpSkyColorTarget.id, dstWidth, dstHeight, 0, m_Props.filterMode, cameraTargetDescriptor.colorFormat);
+            }
         }
     }
 }
